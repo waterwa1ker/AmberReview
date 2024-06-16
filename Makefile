@@ -5,3 +5,5 @@ change_filetype:
 
 clean:
 	rm */*.sh
+
+rebuild: clean all

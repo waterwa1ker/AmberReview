@@ -1,0 +1,17 @@
+import {len, exit, file_exist} from "std";
+
+main(args) {
+	loop i, arg in args {
+		if not file_exist(arg) {
+			echo "Файл {arg} не существует!";
+		} else {
+			let date_of_birth = unsafe $stat -c %w {arg}$;
+        		let date_of_modification = unsafe $stat -c %y {arg}$;
+        		let date_of_change = unsafe $stat -c %z {arg}$;
+        		echo "Дата создания файла {arg} - {date_of_birth}";
+        		echo "Дата модификации файла {arg} - {date_of_modification}";
+        		echo "Дата изменения файла {arg} - {date_of_change}";
+			echo "---------------------";
+		}
+	}
+}
