@@ -1,0 +1,18 @@
+import {len, file_exist, exit, split} from "std"
+
+main (args) {
+	if len(args) != 2 {
+		echo "Неправильное количество аргументов";
+		exit(1);
+	}
+	let filename = args[0];
+	let filetype = args[1];
+	if not file_exist(filename){
+		echo "Файл не существует";
+		exit(1);
+	}
+	let splited = split(filename, ".");
+	$mv {filename} {splited[0]}.{filetype}$ failed {
+		echo "Не удалось конвертировать на расширение {filetype}";
+	}	
+}
