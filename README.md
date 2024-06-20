@@ -1,6 +1,7 @@
 # AmberReview
 
 ![Static Badge](https://img.shields.io/badge/Amber-blue)
+![Static Badge](https://img.shields.io/badge/Bash-blue)
 
 Для обзора данного языка выполним [несколько заданий](http://www.astro.spbu.ru/sites/default/files/training_problems.pdf) для bash скриптов, используя Amber.
 
