@@ -140,6 +140,36 @@ sed -n {line_number}p - используем для вывода строки п
 
 cut -c {interval} - используем для отображения последовательность {interval} вида %d-%d.
 
+## Задание 4. Добавление даты
+
+![add-timestamp](./images/add-timestamp.png)
+
+```Amber
+import {len, exit, file_exist, file_append} from "std";
+
+fun get_date() : Text{
+	return unsafe $date$;
+}
+
+main(args) {
+	if len(args) == 0 {
+		echo "Incorrect size of args";
+		exit(1);
+	}
+	loop arg in args {
+		if not file_exist(arg) {
+			echo "File {arg} don't exist";
+		} else {
+			unsafe file_append(arg, get_date());	
+		}
+	}
+}
+```
+
+### Замечания
+
+date - используем для получения текущей даты.
+
 ## References
 
 Ссылка на [исходный код](https://github.com/Ph0enixKM/Amber) и [документацию](https://docs.amber-lang.com).
