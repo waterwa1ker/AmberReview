@@ -74,6 +74,8 @@ main(args) {
 }
 ```
 
+### Замечания
+
 unsafe говорит о том, что не нужно ловить неправильные поведения команды (в данном случае stat).
 
 stat -c %w - выводит только дату создания файла
@@ -83,6 +85,60 @@ stat -c %y - выводит только дату модификации фай�
 stat -c %z - выводит только дату изменений файла
 
 Подробнее [manual stat](https://man7.org/linux/man-pages/man1/stat.1.html).
+
+## Задание 3. Выделение последовательности символов
+
+![highlight-symbols](./images/highlight-symbols.png)
+
+```Amber
+import {input, file_exist, exit, split} from "std";
+
+fun give_line_count(filename: Text) {
+	return unsafe $grep -c \$ {filename}$;
+}
+
+fun check_line_number(line_number : Num, correct_line_number : Num) {
+	if line_number < 0 or line_number > correct_line_number {
+		echo "Incorrect line number!";
+		exit(1);
+	} else {
+		if correct_line_number == 0 {
+			echo "Empty file :(";
+			exit(1);
+		}
+	}
+}
+
+fun give_sequence(filename: Text, line_number : Num, interval : Text) {
+	let line = unsafe $sed -n {line_number}p {filename}$;
+	let result = unsafe $echo "{line}" | cut -c {interval}$;
+	return result;
+}
+
+main(args) {
+	let filepath_request = "Write a path to file:\n";
+	let interval_request = "Write an interval from line. Format - d-d:\n";
+	let filepath = input(filepath_request);
+	if not file_exist(filepath) {
+		echo "Incorrect filepath!";
+		exit(1);
+	}
+	let line_number_request = "Choose a line number from " + "{filepath}" + ":\n";
+	let line_number = input(line_number_request) as Num;
+	let correct_line_number = give_line_count(filepath) as Num;
+	check_line_number(line_number, correct_line_number);
+	let interval = input(interval_request);
+	echo "Последовательность символов - " + give_sequence(filepath, line_number, interval);
+}
+```
+
+### Замечания
+
+grep -c - используем для подсчет количества строк в файле.
+
+sed -n {line_number}p - используем для вывода строки по номеру {line_number}.
+
+cut -c {interval} - используем для отображения последовательность {interval} вида %d-%d.
 
 ## References
 
