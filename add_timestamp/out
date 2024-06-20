@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+# Written in [Amber](https://amber-lang.com/)
+
+function file_exist__5_v0 {
+    local path=$1
+    [ -f "${path}" ]
+__AS=$?;
+if [ $__AS != 0 ]; then
+        __AF_file_exist5_v0=0;
+        return 0
+fi
+    __AF_file_exist5_v0=1;
+    return 0
+}
+function file_append__8_v0 {
+    local path=$1
+    local content=$2
+    __AMBER_VAL_0=$(echo "${content}" >> "${path}");
+    __AS=$?;
+if [ $__AS != 0 ]; then
+__AF_file_append8_v0=''
+return $__AS
+fi;
+    __AF_file_append8_v0="${__AMBER_VAL_0}";
+    return 0
+}
+function len__18_v0 {
+    local value=("${!1}")
+            if [ 0 != 0 ]; then
+            __AMBER_VAL_1=$(echo "${#value}");
+            __AS=$?;
+            __AF_len18_v0="${__AMBER_VAL_1}";
+            return 0
+else
+            __AMBER_VAL_2=$(echo "${#value[@]}");
+            __AS=$?;
+            __AF_len18_v0="${__AMBER_VAL_2}";
+            return 0
+fi
+}
+function exit__23_v0 {
+    local code=$1
+            exit "${code}"
+__AS=$?
+}
+function get_date__29_v0 {
+    __AMBER_VAL_3=$(date);
+    __AS=$?;
+    __AF_get_date29_v0="${__AMBER_VAL_3}";
+    return 0
+}
+args=("$@")
+    len__18_v0 args[@];
+    __AF_len18_v0__8=$__AF_len18_v0;
+    if [ $(echo $__AF_len18_v0__8 '==' 0 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
+        echo "Incorrect size of args"
+        exit__23_v0 1;
+        __AF_exit23_v0__10=$__AF_exit23_v0;
+        echo $__AF_exit23_v0__10 > /dev/null 2>&1
+fi
+    for arg in "${args[@]}"
+do
+        file_exist__5_v0 "${arg}";
+        __AF_file_exist5_v0__13=$__AF_file_exist5_v0;
+        if [ $(echo  '!' $__AF_file_exist5_v0__13 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
+            echo "File ${arg} don't exist"
+else
+                            get_date__29_v0 ;
+                __AF_get_date29_v0__16="${__AF_get_date29_v0}";
+                file_append__8_v0 "${arg}" "${__AF_get_date29_v0__16}";
+                __AS=$?;
+                __AF_file_append8_v0__16="${__AF_file_append8_v0}";
+                echo "${__AF_file_append8_v0__16}" > /dev/null 2>&1
+fi
+done
