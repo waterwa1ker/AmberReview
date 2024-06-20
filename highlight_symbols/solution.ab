@@ -4,13 +4,6 @@ fun give_line_count(filename: Text) {
 	return unsafe $grep -c \$ {filename}$;
 }
 
-fun check_script_mode(script_mode: Num) {
-	if script_mode < 0 or script_mode > 1 {
-		echo "Incorrect script mode!";
-		exit(1);
-	}
-}
-
 fun check_line_number(line_number : Num, correct_line_number : Num) {
 	if line_number < 0 or line_number > correct_line_number {
 		echo "Incorrect line number!";
@@ -31,19 +24,16 @@ fun give_sequence(filename: Text, line_number : Num, interval : Text) {
 
 main(args) {
 	let filepath_request = "Write a path to file:\n";
-	let script_mode_request = "Choose a script mode: 0 - highlight symbols, 1 - remove symbols:\n";
 	let interval_request = "Write an interval from line. Format - d-d:\n";
 	let filepath = input(filepath_request);
 	if not file_exist(filepath) {
 		echo "Incorrect filepath!";
 		exit(1);
 	}
-	let script_mode = input(script_mode_request) as Num;
-	check_script_mode(script_mode);
 	let line_number_request = "Choose a line number from " + "{filepath}" + ":\n";
 	let line_number = input(line_number_request) as Num;
 	let correct_line_number = give_line_count(filepath) as Num;
 	check_line_number(line_number, correct_line_number);
 	let interval = input(interval_request);
-	echo give_sequence(filepath, line_number, interval);
+	echo "Последовательность символов - " + give_sequence(filepath, line_number, interval);
 }

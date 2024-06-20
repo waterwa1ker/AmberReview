@@ -33,33 +33,24 @@ function give_line_count__29_v0 {
     __AF_give_line_count29_v0="${__AMBER_VAL_0}";
     return 0
 }
-function check_script_mode__30_v0 {
-    local script_mode=$1
-    if [ $(echo $(echo ${script_mode} '<' 0 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') '||' $(echo ${script_mode} '>' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
-        echo "Incorrect script mode!"
-        exit__23_v0 1;
-        __AF_exit23_v0__10=$__AF_exit23_v0;
-        echo $__AF_exit23_v0__10 > /dev/null 2>&1
-fi
-}
-function check_line_number__31_v0 {
+function check_line_number__30_v0 {
     local line_number=$1
     local correct_line_number=$2
     if [ $(echo $(echo ${line_number} '<' 0 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') '||' $(echo ${line_number} '>' ${correct_line_number} | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
         echo "Incorrect line number!"
         exit__23_v0 1;
-        __AF_exit23_v0__17=$__AF_exit23_v0;
-        echo $__AF_exit23_v0__17 > /dev/null 2>&1
+        __AF_exit23_v0__10=$__AF_exit23_v0;
+        echo $__AF_exit23_v0__10 > /dev/null 2>&1
 else
         if [ $(echo ${correct_line_number} '==' 0 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
             echo "Empty file :("
             exit__23_v0 1;
-            __AF_exit23_v0__21=$__AF_exit23_v0;
-            echo $__AF_exit23_v0__21 > /dev/null 2>&1
+            __AF_exit23_v0__14=$__AF_exit23_v0;
+            echo $__AF_exit23_v0__14 > /dev/null 2>&1
 fi
 fi
 }
-function give_sequence__32_v0 {
+function give_sequence__31_v0 {
     local filename=$1
     local line_number=$2
     local interval=$3
@@ -69,47 +60,39 @@ function give_sequence__32_v0 {
     __AMBER_VAL_2=$(echo "${line}" | cut -c ${interval});
     __AS=$?;
     local result="${__AMBER_VAL_2}"
-    __AF_give_sequence32_v0="${result}";
+    __AF_give_sequence31_v0="${result}";
     return 0
 }
 args=("$@")
     filepath_request="Write a path to file:
 "
-    script_mode_request="Choose a script mode: 0 - highlight symbols, 1 - remove symbols:
-"
     interval_request="Write an interval from line. Format - d-d:
 "
     input__0_v0 "${filepath_request}";
-    __AF_input0_v0__36="${__AF_input0_v0}";
-    filepath="${__AF_input0_v0__36}"
+    __AF_input0_v0__28="${__AF_input0_v0}";
+    filepath="${__AF_input0_v0__28}"
     file_exist__5_v0 "${filepath}";
-    __AF_file_exist5_v0__37=$__AF_file_exist5_v0;
-    if [ $(echo  '!' $__AF_file_exist5_v0__37 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
+    __AF_file_exist5_v0__29=$__AF_file_exist5_v0;
+    if [ $(echo  '!' $__AF_file_exist5_v0__29 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
         echo "Incorrect filepath!"
         exit__23_v0 1;
-        __AF_exit23_v0__39=$__AF_exit23_v0;
-        echo $__AF_exit23_v0__39 > /dev/null 2>&1
+        __AF_exit23_v0__31=$__AF_exit23_v0;
+        echo $__AF_exit23_v0__31 > /dev/null 2>&1
 fi
-    input__0_v0 "${script_mode_request}";
-    __AF_input0_v0__41="${__AF_input0_v0}";
-    script_mode="${__AF_input0_v0__41}"
-    check_script_mode__30_v0 ${script_mode};
-    __AF_check_script_mode30_v0__42=$__AF_check_script_mode30_v0;
-    echo $__AF_check_script_mode30_v0__42 > /dev/null 2>&1
     line_number_request="Choose a line number from ""${filepath}"":
 "
     input__0_v0 "${line_number_request}";
-    __AF_input0_v0__44="${__AF_input0_v0}";
-    line_number="${__AF_input0_v0__44}"
+    __AF_input0_v0__34="${__AF_input0_v0}";
+    line_number="${__AF_input0_v0__34}"
     give_line_count__29_v0 "${filepath}";
-    __AF_give_line_count29_v0__45="${__AF_give_line_count29_v0}";
-    correct_line_number="${__AF_give_line_count29_v0__45}"
-    check_line_number__31_v0 ${line_number} ${correct_line_number};
-    __AF_check_line_number31_v0__46=$__AF_check_line_number31_v0;
-    echo $__AF_check_line_number31_v0__46 > /dev/null 2>&1
+    __AF_give_line_count29_v0__35="${__AF_give_line_count29_v0}";
+    correct_line_number="${__AF_give_line_count29_v0__35}"
+    check_line_number__30_v0 ${line_number} ${correct_line_number};
+    __AF_check_line_number30_v0__36=$__AF_check_line_number30_v0;
+    echo $__AF_check_line_number30_v0__36 > /dev/null 2>&1
     input__0_v0 "${interval_request}";
-    __AF_input0_v0__47="${__AF_input0_v0}";
-    interval="${__AF_input0_v0__47}"
-    give_sequence__32_v0 "${filepath}" ${line_number} "${interval}";
-    __AF_give_sequence32_v0__48="${__AF_give_sequence32_v0}";
-    echo "${__AF_give_sequence32_v0__48}"
+    __AF_input0_v0__37="${__AF_input0_v0}";
+    interval="${__AF_input0_v0__37}"
+    give_sequence__31_v0 "${filepath}" ${line_number} "${interval}";
+    __AF_give_sequence31_v0__38="${__AF_give_sequence31_v0}";
+    echo "Последовательность символов - ""${__AF_give_sequence31_v0__38}"
